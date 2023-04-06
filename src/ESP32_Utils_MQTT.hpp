@@ -10,10 +10,10 @@ void ConnectMqtt()
 {
 	while (!mqttClient.connected())
 	{
-		Serial.print("Starting MQTT connection...");
+		Serial.println("Starting MQTT connection...");
 		if (mqttClient.connect(MQTT_CLIENT_NAME,SECRET_MQTT_USER,SECRET_MQTT_PASS))
 		{
-			Serial.print("Success MQTT connection");
+			Serial.println("Success MQTT connection");
 		}
 		else
 		{

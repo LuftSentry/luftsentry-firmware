@@ -1,9 +1,18 @@
-#include <Arduino.h>
+// Library
+#include <WiFi.h>
 
-void setup() {
-  // put your setup code here, to run once:
+
+// Utils
+#include "config.h" 
+#include "ESP32_Utils_WiFi.hpp"
+
+void setup(void)
+{
+	Serial.begin(115200);
+
+	ConnectWiFi_STA(false);
+
 }
-
 void loop() {
   // put your main code here, to run repeatedly:
 }

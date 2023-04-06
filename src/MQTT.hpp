@@ -4,7 +4,7 @@ const uint16_t MQTT_PORT = 1883;
 const char* MQTT_CLIENT_NAME = "ESP32-123456";
 const char* SECRET_MQTT_USER = "usr_esp32-123456";
 const char* SECRET_MQTT_PASS = "5NrLaD73xJQYkltz";
-const char* MQTT_TOPIC = "IoT-123456";
+const char* MQTT_TOPIC = "IoT-123456/";
 
 
 WiFiClient espClient;
@@ -20,7 +20,7 @@ void PublisMqtt(char* topic, unsigned long data)
 {
 	payload = "";
 	payload = String(data);
-	mqttClient.publish("hello/world", (char*)payload.c_str());
+	mqttClient.publish(topic, (char*)payload.c_str());
 }
 
 String content = "";

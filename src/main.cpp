@@ -21,5 +21,6 @@ void setup(void)
 void loop() {
 	HandleMqtt();
 
+	PublisMqtt("IoT123456/humedity", millis());
 	delay(20000);
 }

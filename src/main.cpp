@@ -3,6 +3,7 @@
 #include <SPIFFS.h>
 #include <PubSubClient.h>
 #include "MQTT.hpp"
+#include "DHT.h"
 
 // Utils
 #include "config.h" 

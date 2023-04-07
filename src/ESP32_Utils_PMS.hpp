@@ -5,9 +5,18 @@ void Send_PMS() {
   pms.read();
 
   if (pms){
-    PublisMqtt(PUBLISH_PM_1, pms.pm01);
-    PublisMqtt(PUBLISH_PM_2_5, pms.pm25);
-    PublisMqtt(PUBLISH_PM_1_0, pms.pm10);
+    String payload = "";
+    DynamicJsonDocument doc(1024);
+
+    doc["sensor"] = "pms7003";
+    doc["time"]   = "time";
+    doc["data"]["pm1"] = pms.pm01;
+    doc["data"]["pm25"] = pms.pm25;
+    doc["data"]["pm10"] = pms.pm10;
+
+    serializeJson(doc, payload);
+    PublisMqtt(PUBLISH_PMS, (char*)payload.c_str());
+
     Serial.println(F("Send sucess data PMS to MQTT!"));
     
   }

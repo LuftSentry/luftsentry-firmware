@@ -15,7 +15,7 @@ void SuscribeMqtt(char* topic)
 	mqttClient.subscribe(topic);
 }
 
-char payload[50];
+char payload[1024];
 void PublisMqtt(const char* topic, unsigned int data)
 {
 	snprintf (payload, 50, "%d", data);
@@ -34,6 +34,11 @@ void PublisMqtt(const char* topic, uint16_t data)
 
 	snprintf (payload, 50, "#%u", data);
 	mqttClient.publish(topic, payload);
+}
+
+void PublisMqtt(const char* topic, char* data)
+{
+	mqttClient.publish(topic, data);
 }
 
 String content = "";

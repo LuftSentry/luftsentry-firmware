@@ -11,8 +11,15 @@ void Send_DHT() {
         return;
     }
 
+    String payload = "";
+    DynamicJsonDocument doc(1024);
+    doc["sensor"] = "dht22";
+    doc["time"]   = "time";
+    doc["data"]["temperature"] = Temperature;
+    doc["data"]["humidity"] = Humidity;
 
-	PublisMqtt(PUBLISH_TEMPERATURE, Temperature);
-    PublisMqtt(PUBLISH_HUMEDITY, Humidity);
+    serializeJson(doc, payload);
+    PublisMqtt(PUBLISH_DTH, (char*)payload.c_str());
+
     Serial.println(F("Send sucess data DHT to MQTT!"));
 }

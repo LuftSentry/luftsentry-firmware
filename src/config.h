@@ -9,6 +9,5 @@ IPAddress subnet(255, 255, 255, 0);
 
 const char* PUBLISH_TEMPERATURE = "IoT_123456/temperature";
 const char* PUBLISH_HUMEDITY = "IoT_123456/humedity";
-const char* PUBLISH_PM_1 = "IoT_123456/pm1";
-const char* PUBLISH_PM_2_5 = "IoT_123456/pm25";
-const char* PUBLISH_PM_1_0 = "IoT_123456/pm10";
+const char* PUBLISH_DTH = "IoT_123456/dth";
+const char* PUBLISH_PMS = "IoT_123456/pms";

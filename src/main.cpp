@@ -3,7 +3,7 @@
 #include <SPIFFS.h>
 #include <PubSubClient.h>
 #include "DHT.h"
-#include <PMS.h>
+#include <PMserial.h>
 
 // Utils
 #include "MQTT.hpp"
@@ -18,14 +18,12 @@ DHT dht(DHTPin, DHTTYPE);
 #include "ESP32_Utils_DHT.hpp"
 
 // PMS Sensor
-PMS pms(Serial2);
-PMS::DATA data;
+SerialPM pms(PMSx003, 16, 17);  // PMSx003, RX, TX
 #include "ESP32_Utils_PMS.hpp"
 
 void setup(void)
 {
 	Serial.begin(115200);
-	Serial2.begin(115200);
 	delay(100);
 	
 	SPIFFS.begin();
@@ -33,7 +31,7 @@ void setup(void)
 
 	ConnectWiFi_STA(false);
 	InitMqtt();
-
+  	pms.init();   
 }
 void loop() {
 	HandleMqtt();

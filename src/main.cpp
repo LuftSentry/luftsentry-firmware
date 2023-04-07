@@ -1,6 +1,5 @@
 // Library
 #include <WiFi.h>
-#include <SPIFFS.h>
 #include <PubSubClient.h>
 #include "DHT.h"
 #include <PMserial.h>
@@ -25,8 +24,6 @@ void setup(void)
 {
 	Serial.begin(115200);
 	delay(100);
-	
-	SPIFFS.begin();
 	pinMode(DHTPin, INPUT);
 
 	ConnectWiFi_STA(false);

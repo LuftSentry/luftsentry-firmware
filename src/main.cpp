@@ -11,6 +11,8 @@
 #include "config.h" 
 #include "ESP32_Utils_WiFi.hpp"
 #include "ESP32_Utils_MQTT.hpp"
+#include "structures.hpp"
+
 
 // DTH Sensor
 #define DHTTYPE DHT22
@@ -21,6 +23,7 @@ DHT dht(DHTPin, DHTTYPE);
 // PMS Sensor
 SerialPM pms(PMSx003, 16, 17);  // PMSx003, RX, TX
 #include "ESP32_Utils_PMS.hpp"
+#include "Measures.hpp"
 
 void setup(void)
 {
@@ -34,8 +37,7 @@ void setup(void)
 }
 void loop() {
 	HandleMqtt();
-	Send_DHT();
-	Send_PMS();
+    HandleMeasure();
 
-	delay(10000);
+	delay(5000);
 }

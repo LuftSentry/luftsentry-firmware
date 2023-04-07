@@ -4,7 +4,6 @@ const uint16_t MQTT_PORT = 1883;
 const char* MQTT_CLIENT_NAME = "ESP32-123456";
 const char* SECRET_MQTT_USER = "usr_esp32-123456";
 const char* SECRET_MQTT_PASS = "5NrLaD73xJQYkltz";
-const char* MQTT_TOPIC = "IoT123456/";
 
 
 WiFiClient espClient;
@@ -16,27 +15,27 @@ void SuscribeMqtt(char* topic)
 }
 
 char payload[1024];
-void PublisMqtt(const char* topic, unsigned int data)
+void PublishMqtt(const char* topic, unsigned int data)
 {
 	snprintf (payload, 50, "%d", data);
 	mqttClient.publish(topic, payload);
 }
 
-void PublisMqtt(const char* topic, float data)
+void PublishMqtt(const char* topic, float data)
 {
 
 	snprintf (payload, 50, "#%f", data);
 	mqttClient.publish(topic, payload);
 }
 
-void PublisMqtt(const char* topic, uint16_t data)
+void PublishMqtt(const char* topic, uint16_t data)
 {
 
 	snprintf (payload, 50, "#%u", data);
 	mqttClient.publish(topic, payload);
 }
 
-void PublisMqtt(const char* topic, char* data)
+void PublishMqtt(const char* topic, char* data)
 {
 	mqttClient.publish(topic, data);
 }

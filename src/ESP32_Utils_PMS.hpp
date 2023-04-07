@@ -1,21 +1,16 @@
 
 uint16_t pm1, pm25, pm10;
-void Send_PMS() {
+ParticleRangeMeasurement MeasuresPMS() {
   
+  ParticleRangeMeasurement data;
+
   pms.read();
 
   if (pms){
-    String payload = "";
-    DynamicJsonDocument doc(1024);
 
-    doc["sensor"] = "pms7003";
-    doc["time"]   = "time";
-    doc["data"]["pm1"] = pms.pm01;
-    doc["data"]["pm25"] = pms.pm25;
-    doc["data"]["pm10"] = pms.pm10;
-
-    serializeJson(doc, payload);
-    PublisMqtt(PUBLISH_PMS, (char*)payload.c_str());
+    data.pm1 = pms.pm01;
+    data.pm25 = pms.pm25;
+    data.pm10 = pms.pm10;
 
     Serial.println(F("Send sucess data PMS to MQTT!"));
     
@@ -52,4 +47,6 @@ void Send_PMS() {
       break;
     }
   }
+
+  return data;
 }

@@ -1,25 +1,18 @@
 float Temperature;
 float Humidity;
 
-void Send_DHT() {
+TempAndHumidity MeasuresDHT() {
 
-    Temperature = dht.readTemperature(); // Gets the values of the temperature
-    Humidity = dht.readHumidity(); // Gets the values of the humidity 
+    TempAndHumidity data;
 
-    if (isnan(Temperature) || isnan(Humidity)) {
+    data.temperature = dht.readTemperature();
+    data.humidity  = dht.readHumidity();
+
+    if (isnan(data.humidity) || isnan(data.temperature )) {
         Serial.println(F("Failed to read from DHT sensor!"));
-        return;
     }
 
-    String payload = "";
-    DynamicJsonDocument doc(1024);
-    doc["sensor"] = "dht22";
-    doc["time"]   = "time";
-    doc["data"]["temperature"] = Temperature;
-    doc["data"]["humidity"] = Humidity;
-
-    serializeJson(doc, payload);
-    PublisMqtt(PUBLISH_DTH, (char*)payload.c_str());
-
     Serial.println(F("Send sucess data DHT to MQTT!"));
+
+    return data;
 }

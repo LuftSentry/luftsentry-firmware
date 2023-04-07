@@ -3,6 +3,7 @@
 #include <PubSubClient.h>
 #include "DHT.h"
 #include <PMserial.h>
+#include <ArduinoJson.h>
 
 // Utils
 #include "MQTT.hpp"

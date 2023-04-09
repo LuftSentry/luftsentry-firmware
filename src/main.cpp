@@ -4,7 +4,8 @@
 #include "DHT.h"
 #include <PMserial.h>
 #include <ArduinoJson.h>
-#include "time.h"
+#include "time.h" 
+#include <WiFiManager.h> 
 
 // Utils
 #include "MQTT.hpp"
@@ -25,13 +26,13 @@ SerialPM pms(PMSx003, 16, 17);  // PMSx003, RX, TX
 #include "ESP32_Utils_PMS.hpp"
 #include "Measures.hpp"
 
+
 void setup(void)
 {
 	Serial.begin(115200);
 	delay(100);
 	pinMode(DHTPin, INPUT);
-
-	ConnectWiFi_STA(false);
+	ConnectWiFi();
 	InitMqtt();
   	pms.init();   
 }

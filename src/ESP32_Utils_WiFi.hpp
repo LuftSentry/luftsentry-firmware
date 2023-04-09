@@ -1,37 +1,21 @@
-void ConnectWiFi_STA(bool useStaticIP = false)
+void ConnectWiFi()
 {
-   Serial.println("");
-   WiFi.mode(WIFI_STA);
-   WiFi.begin(ssid, password);
-   if(useStaticIP) WiFi.config(ip, gateway, subnet);
-   while (WiFi.status() != WL_CONNECTED) 
-   { 
-     delay(100);  
-     Serial.print('.'); 
-   }
- 
-   Serial.println("");
-   Serial.print("Iniciado STA:\t");
-   Serial.println(ssid);
-   Serial.print("IP address:\t");
-   Serial.println(WiFi.localIP());
+    WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
+    
+    WiFiManager wiFiManager;
 
-}
+    wiFiManager.resetSettings();
 
-void ConnectWiFi_AP(bool useStaticIP = false)
-{ 
-   Serial.println("");
-   WiFi.mode(WIFI_AP);
-   while(!WiFi.softAP(ssid, password))
-   {
-     Serial.println(".");
-     delay(100);
-   }
-   if(useStaticIP) WiFi.softAPConfig(ip, gateway, subnet);
+    bool res;
+    res = wiFiManager.autoConnect(DEVICE_ID,"IOT12345678");
 
-   Serial.println("");
-   Serial.print("Iniciado AP:\t");
-   Serial.println(ssid);
-   Serial.print("IP address:\t");
-   Serial.println(WiFi.softAPIP());
+    if(!res) {
+        Serial.println("Failed to connect!");
+        // ESP.restart();
+    } 
+    else {
+        Serial.println("Connected :)");
+        Serial.println("IP address: ");
+        Serial.println(WiFi.localIP());   
+    }
 }

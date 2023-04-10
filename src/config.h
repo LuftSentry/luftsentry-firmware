@@ -7,3 +7,7 @@ IPAddress gateway(192, 168, 1, 255);
 IPAddress subnet(255, 255, 255, 0);
 
 const char* PUBLISH_TOPIC = "Luft_Sentry_antioquia";
+
+const char* ntpServer = "co.pool.ntp.org";
+const long  gmtOffset_sec = -5*3600;
+const int   daylightOffset_sec = 0;

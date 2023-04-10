@@ -11,6 +11,7 @@
 #include "config.h" 
 #include "ESP32_Utils_WiFi.hpp"
 #include "ESP32_Utils_MQTT.hpp"
+#include "ESP32_Utils_NTP.hpp"
 #include "structures.hpp"
 
 
@@ -32,12 +33,13 @@ void setup(void)
 	pinMode(DHTPin, INPUT);
 
 	ConnectWiFi_STA(false);
+  	printLocalTime();
 	InitMqtt();
   	pms.init();   
 }
 void loop() {
 	HandleMqtt();
-    HandleMeasure();
+    //HandleMeasure();
 
 	delay(5000);
 }

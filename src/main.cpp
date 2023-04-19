@@ -1,7 +1,7 @@
 // Library
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include "DHT.h"
+#include "DHTStable.h"
 #include <PMserial.h>
 #include <ArduinoJson.h>
 #include "time.h"
@@ -16,9 +16,9 @@
 
 
 // DTH Sensor
-#define DHTTYPE DHT22
-uint8_t DHTPin = 13; 
-DHT dht(DHTPin, DHTTYPE);
+
+DHTStable DHT;
+#define DHT22_PIN       13
 #include "ESP32_Utils_DHT.hpp"
 
 // PMS Sensor
@@ -30,8 +30,6 @@ void setup(void)
 {
 	Serial.begin(115200);
 	delay(100);
-	pinMode(DHTPin, INPUT);
-
 	ConnectWiFi_STA(false);
   	printLocalTime();
 	InitMqtt();
@@ -39,7 +37,7 @@ void setup(void)
 }
 void loop() {
 	HandleMqtt();
-    //HandleMeasure();
+    HandleMeasure();
 
 	delay(5000);
 }

@@ -3,16 +3,45 @@ float Humidity;
 
 TempAndHumidity MeasuresDHT() {
 
-    TempAndHumidity data;
+    // READ DATA
+    Serial.print("DHT22, \t");
 
-    data.temperature = dht.readTemperature();
-    data.humidity  = dht.readHumidity();
+    uint32_t start = micros();
+    int chk = DHT.read22(DHT22_PIN);
+    uint32_t stop = micros();
 
-    if (isnan(data.humidity) || isnan(data.temperature )) {
-        Serial.println(F("Failed to read from DHT sensor!"));
+    counter.total++;
+    switch (chk)
+    {
+    case DHTLIB_OK:
+        counter.ok++;
+        break;
+    case DHTLIB_ERROR_CHECKSUM:
+        counter.crc_error++;
+        Serial.print("Checksum error,\t");
+        break;
+    case DHTLIB_ERROR_TIMEOUT:
+        counter.time_out++;
+        Serial.print("Time out error,\t");
+        break;
+    default:
+        counter.unknown++;
+        Serial.print("Unknown error,\t");
+        break;
     }
 
-    Serial.println(F("Send sucess data DHT to MQTT!"));
+
+    TempAndHumidity data;
+    delay(5000);
+    data.temperature = DHT.getTemperature();
+    delay(5000);
+    data.humidity  = DHT.getHumidity();
+
+    Serial.print("Temperatura ");
+    Serial.println(data.temperature);
+
+    Serial.print("Humedad ");
+    Serial.println(data.humidity);
 
     return data;
 }

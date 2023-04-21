@@ -1,4 +1,7 @@
+#include <secrets.h>
 // Library
+#include "SPIFFS.h"
+#include <WiFiClientSecure.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include "DHTStable.h"
@@ -6,17 +9,18 @@
 #include <ArduinoJson.h>
 #include "time.h"
 
+WiFiClientSecure espClient = WiFiClientSecure();
+PubSubClient mqttClient(espClient);
+
 // Utils
+#include <config.h>
 #include "MQTT.hpp"
-#include "config.h" 
 #include "ESP32_Utils_WiFi.hpp"
 #include "ESP32_Utils_MQTT.hpp"
 #include "ESP32_Utils_NTP.hpp"
 #include "structures.hpp"
 
-
 // DTH Sensor
-
 DHTStable DHT;
 #define DHT22_PIN       13
 #include "ESP32_Utils_DHT.hpp"

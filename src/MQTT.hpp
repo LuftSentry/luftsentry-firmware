@@ -1,14 +1,3 @@
-
-const char* MQTT_BROKER_ADRESS = "node02.myqtthub.com";
-const uint16_t MQTT_PORT = 1883;
-const char* MQTT_CLIENT_NAME = "ESP32-123456";
-const char* SECRET_MQTT_USER = "usr_esp32-123456";
-const char* SECRET_MQTT_PASS = "5NrLaD73xJQYkltz";
-
-
-WiFiClient espClient;
-PubSubClient mqttClient(espClient);
-
 void SuscribeMqtt(char* topic)
 {
 	mqttClient.subscribe(topic);

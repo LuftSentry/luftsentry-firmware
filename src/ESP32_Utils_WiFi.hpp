@@ -10,11 +10,11 @@ void ConnectWiFi_STA(bool useStaticIP = false)
      Serial.print('.'); 
    }
  
-   Serial.println("");
-   Serial.print("Iniciado STA:\t");
-   Serial.println(ssid);
-   Serial.print("IP address:\t");
-   Serial.println(WiFi.localIP());
+  Serial.println("");
+  Serial.print("Iniciado STA:\t");
+  Serial.println(ssid);
+  Serial.print("IP address:\t");
+  Serial.println(WiFi.localIP());
 
 }
 

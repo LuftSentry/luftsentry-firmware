@@ -3,9 +3,6 @@ float Humidity;
 
 TempAndHumidity MeasuresDHT() {
 
-    // READ DATA
-    Serial.print("DHT22, \t");
-
     uint32_t start = micros();
     int chk = DHT.read22(DHT22_PIN);
     uint32_t stop = micros();
@@ -32,16 +29,8 @@ TempAndHumidity MeasuresDHT() {
 
 
     TempAndHumidity data;
-    delay(5000);
     data.temperature = DHT.getTemperature();
-    delay(5000);
     data.humidity  = DHT.getHumidity();
-
-    Serial.print("Temperatura ");
-    Serial.println(data.temperature);
-
-    Serial.print("Humedad ");
-    Serial.println(data.humidity);
-
+    Serial.println(F("Send sucess data DHT to MQTT!"));
     return data;
 }

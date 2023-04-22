@@ -40,16 +40,16 @@ void setup(void)
 {
 	Serial.begin(115200);
 	delay(100);
-	InitKeys();	
+	//InitKeys();	
 	ConnectWiFi_STA(false);
   	printLocalTime();
-	checkFirmwareUpdate();
-	InitMqtt();
+	InitOTA();	
+	//InitMqtt();
   	pms.init();   
 }
 void loop() {
-	HandleMqtt();
-    HandleMeasure();
+	//HandleMqtt();
+    //HandleMeasure();
 
 	delay(5000);
 }

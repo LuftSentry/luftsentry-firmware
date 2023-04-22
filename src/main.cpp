@@ -18,6 +18,7 @@ PubSubClient mqttClient(espClient);
 #include "ESP32_Utils_WiFi.hpp"
 #include "ESP32_Utils_MQTT.hpp"
 #include "ESP32_Utils_NTP.hpp"
+#include "ESP32_Utils_Keys.hpp"
 #include "structures.hpp"
 
 // DTH Sensor
@@ -34,6 +35,7 @@ void setup(void)
 {
 	Serial.begin(115200);
 	delay(100);
+	InitKeys();	
 	ConnectWiFi_STA(false);
   	printLocalTime();
 	InitMqtt();

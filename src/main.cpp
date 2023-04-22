@@ -8,18 +8,23 @@
 #include <PMserial.h>
 #include <ArduinoJson.h>
 #include "time.h"
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+#include "HTTPClient.h"
 
 WiFiClientSecure espClient = WiFiClientSecure();
 PubSubClient mqttClient(espClient);
+AsyncWebServer server(80);
 
 // Utils
 #include <config.h>
+#include "structures.hpp"
 #include "MQTT.hpp"
 #include "ESP32_Utils_WiFi.hpp"
 #include "ESP32_Utils_MQTT.hpp"
 #include "ESP32_Utils_NTP.hpp"
 #include "ESP32_Utils_Keys.hpp"
-#include "structures.hpp"
+#include "ESP32_Utils_OTA.hpp"
 
 // DTH Sensor
 DHTStable DHT;
@@ -38,6 +43,7 @@ void setup(void)
 	InitKeys();	
 	ConnectWiFi_STA(false);
   	printLocalTime();
+	checkFirmwareUpdate();
 	InitMqtt();
   	pms.init();   
 }

@@ -1,4 +1,3 @@
-#include <secrets.h>
 // Library
 #include "SPIFFS.h"
 #include <WiFiClientSecure.h>
@@ -40,16 +39,16 @@ void setup(void)
 {
 	Serial.begin(115200);
 	delay(100);
-	//InitKeys();	
 	ConnectWiFi_STA(false);
   	printLocalTime();
 	InitOTA();	
-	//InitMqtt();
+	InitKeys();		
+	InitMqtt();
   	pms.init();   
 }
 void loop() {
-	//HandleMqtt();
-    //HandleMeasure();
+	HandleMqtt();
+    HandleMeasure();
 
 	delay(5000);
 }

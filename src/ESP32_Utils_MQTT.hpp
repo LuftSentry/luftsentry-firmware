@@ -1,13 +1,8 @@
-String Read_rootca;
-String Read_cert;
-String Read_privatekey;
-
 void InitMqtt() 
 {
-
-	espClient.setCACert(AWS_CERT_CA);
-	espClient.setCertificate(AWS_CERT_CRT);
-	espClient.setPrivateKey(AWS_CERT_PRIVATE);
+	espClient.setCACert(pRead_rootca);
+	espClient.setCertificate(pRead_cert);
+	espClient.setPrivateKey(pRead_privatekey);
 	mqttClient.setServer(MQTT_BROKER_ADRESS, MQTT_PORT);
 	mqttClient.setCallback(OnMqttReceived);
 }

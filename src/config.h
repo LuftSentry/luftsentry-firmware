@@ -23,3 +23,7 @@ const char* FIRMWARE_VERSION = "0.1.0";
 const char* filenames[] = {"/data/AmazonRootCA1.pem", "/data/luftsentry.cert.pem", "/data/luftsentry.private.key"};
 const char* urls[] = {"https://luftsentry.s3.amazonaws.com/certificates/AmazonRootCA1.pem", "https://luftsentry.s3.amazonaws.com/certificates/luftsentry.cert.pem", "https://luftsentry.s3.amazonaws.com/certificates/luftsentry.private.key"};
 int num_files = sizeof(filenames) / sizeof(filenames[0]);
+
+char* pRead_rootca;
+char* pRead_cert;
+char* pRead_privatekey;

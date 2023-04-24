@@ -40,6 +40,19 @@ void OnMqttReceived(char* topic, byte* payload, unsigned int length)
 	for (size_t i = 0; i < length; i++) {
 		content.concat((char)payload[i]);
 	}
+
+	if (String(topic) == OTA_TOPIC) {
+	    DynamicJsonDocument doc(1024);
+		deserializeJson(doc, payload);
+
+		// Obtiene la versión del firmware del mensaje
+		String version = doc["version"];
+
+		// Compara la versión del firmware del mensaje con la versión actual
+		if (version > FIRMWARE_VERSION) {
+		firmwareUpdate(); // Ejecuta la actualización de firmware
+		}
+	}
 	Serial.print(content);
 	Serial.println();
 }

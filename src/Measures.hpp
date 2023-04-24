@@ -2,8 +2,8 @@ DynamicJsonDocument CreateJson() {
 
     DynamicJsonDocument json(1024);
 
-    json["date"] = "2023-20-01";
-    json["device"] = "esp32_01_everyone";
+    json["date"] = "";
+    json["device"] = MQTT_CLIENT_NAME;
 
     JsonObject sensors = json.createNestedObject("sensors");
     sensors["pms"] = "pms7003";

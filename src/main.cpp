@@ -61,11 +61,9 @@ void setup(void)
 void loop() {
 	
 	HandleMqtt();
-	/**
 	timefinish = millis();
 	if(timefinish > (timestart+60000)){
 		timestart = millis();
     	HandleMeasure();
 	}
-	**/
 }

@@ -1,12 +1,9 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  create:
+    tags:
+      - "*"
 
 jobs:
   build:
@@ -43,3 +40,19 @@ jobs:
           aws_bucket: ${{ secrets.AWS_BUCKET }}
           destination_dir: "binaries"
           source_dir: ".pio/build/luftsentry/firmware.bin"
+
+      - name: Extract tag name
+        id: extract_tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Perform cURL request
+        run: |
+          TAG_NAME=${{ env.TAG_NAME }}
+          curl --location --request PUT 'https://api.luftsentry.com/v1/ota' \
+          --header 'Content-Type: application/json' \
+          --data '{
+              "key": "7L$6WnuvQ0eM",
+              "device": "esp32",
+              "url": "url",
+              "version": ${TAG_NAME}
+              }'

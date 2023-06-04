@@ -44,10 +44,9 @@ unsigned long timestart = 0;
 unsigned long timefinish = 0;
 
 
-
 void setup(void)
 {
-	Serial.begin(115200);
+	Serial.begin(115200);	
 	delay(100);
 	ConnectWiFi_STA(false);
   	printLocalTime();
@@ -60,11 +59,13 @@ void setup(void)
 }
 
 void loop() {
-
+	
 	HandleMqtt();
+	/**
 	timefinish = millis();
 	if(timefinish > (timestart+60000)){
 		timestart = millis();
     	HandleMeasure();
 	}
+	**/
 }

@@ -42,6 +42,15 @@ jobs:
       - name: Run PlatformIO
         run: platformio run
 
+      - name: Perform cURL request
+        run: |
+          ls -la
+          pwd
+          current_dir=$(pwd)
+          echo "Current directory: $current_dir"
+          ls -la $current_dir
+
+
       - name: Upload firmware to S3
         uses: shallwefootball/s3-upload-action@master
         with:

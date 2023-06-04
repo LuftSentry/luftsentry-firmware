@@ -41,7 +41,7 @@ jobs:
           ls -la
           pwd
           current_dir=$(pwd)
-          pio_dir="$current_dir/.pio/build/luftsentry"
+          pio_dir="$current_dir/.pio/build/lufts_entry"
           echo "Current directory: $pio_dir"
           ls -la $pio_dir
 
@@ -53,7 +53,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET }}
           destination_dir: "binaries"
-          source_dir: "$GITHUB_PATH/.pio/build/luftsentry/firmware.bin"
+          source_dir: ".pio/build/lufts_entry/firmware.bin"
 
       - name: Extract tag name
         id: extract_tag

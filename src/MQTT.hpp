@@ -41,6 +41,9 @@ void OnMqttReceived(char* topic, byte* payload, unsigned int length)
 		content.concat((char)payload[i]);
 	}
 
+	Serial.print(content);
+	Serial.println();
+	
 	if (String(topic) == OTA_TOPIC) {
 	    DynamicJsonDocument doc(1024);
 		deserializeJson(doc, payload);
@@ -53,6 +56,5 @@ void OnMqttReceived(char* topic, byte* payload, unsigned int length)
 		firmwareUpdate(); // Ejecuta la actualización de firmware
 		}
 	}
-	Serial.print(content);
-	Serial.println();
+
 }

@@ -40,6 +40,8 @@ SerialPM pms(PMSx003, 16, 17);  // PMSx003, RX, TX
 #include "ESP32_Utils_PMS.hpp"
 #include "Measures.hpp"
 const char* PARAM_MESSAGE = "message";
+unsigned long timestart = 0;
+unsigned long timefinish = 0;
 
 
 
@@ -52,13 +54,17 @@ void setup(void)
 	InitOTA();	
 	InitKeys();		
 	InitMqtt();
-  	pms.init();  
-	Serial.printf("Firmware version is %d : LuftSentry \n", FIRMWARE_VERSION); 
+  	pms.init();
+	timestart = millis();  
+	Serial.printf("Firmware version is %s : LuftSentry \n", FIRMWARE_VERSION); 
 }
 
 void loop() {
-	HandleMqtt();
-    HandleMeasure();
 
-	delay(5000);
+	HandleMqtt();
+	timefinish = millis();
+	if(timefinish > (timestart+60000)){
+		timestart = millis();
+    	HandleMeasure();
+	}
 }

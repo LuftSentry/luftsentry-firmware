@@ -4,7 +4,10 @@ on:
   create:
     branches:
       - feature/actions
-
+  push:
+    branches:
+      - feature/actions
+      
 jobs:
   build:
     name: build and deploy

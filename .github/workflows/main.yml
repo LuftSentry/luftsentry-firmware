@@ -1,27 +1,20 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  create:
+    tags:
+      - "*"
 
 jobs:
   build:
     name: build and deploy
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      REACT_APP_STATICS: ${{ secrets.REACT_APP_STATICS }}
-      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
 
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: "true"
+
       - name: Set up Python
         uses: actions/setup-python@v2
 
@@ -35,11 +28,29 @@ jobs:
       - name: Run PlatformIO
         run: platformio run
 
-      - name: Upload firmware to S3
-        uses: shallwefootball/s3-upload-action@master
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
-          destination_dir: "binaries"
-          source_dir: ".pio/build/luftsentry/firmware.bin"
+          aws-access-key-id: ${{ secrets.AWS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"
+
+      - name: Upload firmware to S3
+        run: |
+          aws s3 cp .pio/build/luftsentry/firmware.bin s3://${{ secrets.AWS_BUCKET }}/binaries/firmware.bin
+
+      - name: Extract tag name
+        id: extract_tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Perform cURL request
+        run: |
+          TAG_NAME=${{ env.TAG_NAME }}
+          curl --location --request PUT 'https://api.luftsentry.com/v1/ota' \
+          --header 'Content-Type: application/json' \
+          --data "{
+            \"key\": \"7L\$6WnuvQ0eM\",
+            \"device\": \"esp32\",
+            \"url\": \"url\",
+            \"version\": \"${TAG_NAME}\"
+          }"

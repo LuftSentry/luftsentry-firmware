@@ -41,8 +41,9 @@ jobs:
           ls -la
           pwd
           current_dir=$(pwd)
-          echo "Current directory: $current_dir/.pio/build"
-          ls -la $current_dir
+          pio_dir="$current_dir/.piobuild"
+          echo "Current directory: $pio_dir"
+          ls -la $pio_dir
 
 
       - name: Upload firmware to S3

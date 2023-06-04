@@ -41,7 +41,7 @@ jobs:
           ls -la
           pwd
           current_dir=$(pwd)
-          pio_dir="$current_dir/.pio/build"
+          pio_dir="$current_dir/.pio/build/luftsentry"
           echo "Current directory: $pio_dir"
           ls -la $pio_dir
 

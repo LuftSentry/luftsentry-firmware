@@ -23,12 +23,6 @@ jobs:
         with:
           submodules: "true"
 
-      - name: Perform cURL request
-        run: |
-          ls -la
-          pwd
-          echo $GITHUB_PATH
-
       - name: Set up Python
         uses: actions/setup-python@v2
 
@@ -47,7 +41,7 @@ jobs:
           ls -la
           pwd
           current_dir=$(pwd)
-          echo "Current directory: $current_dir"
+          echo "Current directory: $current_dir/.pio/build"
           ls -la $current_dir
 
 

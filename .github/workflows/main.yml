@@ -2,8 +2,8 @@ name: CI
 
 on:
   create:
-    tags:
-      - "*"
+    branches:
+      - feature/actions
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET }}
           destination_dir: "binaries"
-          source_dir: ".pio/build/luftsentry/firmware.bin"
+          source_dir: "$GITHUB_PATH/.pio/build/luftsentry/firmware.bin"
 
       - name: Extract tag name
         id: extract_tag

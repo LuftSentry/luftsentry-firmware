@@ -21,7 +21,7 @@ const long  gmtOffset_sec = -5*3600;
 const int   daylightOffset_sec = 0;
 
 const char* FIRMWARE_URL = "https://luftsentry.s3.amazonaws.com/versions/latest.json";
-const char* FIRMWARE_VERSION = "0.1.7";
+const char* FIRMWARE_VERSION = "0.1.8";
 const char* OTA_TOPIC = "Luft_Sentry/OTA/esp32";
 
 
